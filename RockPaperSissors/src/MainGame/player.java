@@ -4,11 +4,13 @@ public class player
     private int score;
     private boolean status;
     private String[] gameMoves = {"Rock", "Paper", "Sissors"};
-    
-    public void gameStart()
+    private String chosenMove;
+    public void gameSet(int score, boolean status, String name, String chosenMove)
     {
-        int score = 0;
-
+        this.score = score;
+        this.status = status;
+        this.name = name;
+        this.chosenMove = chosenMove;
     }
     
 
