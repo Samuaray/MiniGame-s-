@@ -1,33 +1,39 @@
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+
 public class player
 {
     private String name;
     private int score;
-    private boolean status;
+    private boolean performance;
     private String[] gameMoves = {"Rock", "Paper", "Sissors"};
     private String chosenMove;
-    public void gameSet(int score, boolean status, String name, String chosenMove)
+    public void playerSet(int score, boolean status, String name, String chosenMove)
     {
         this.score = score;
-        this.status = status;
+        this.performance = true; //false by default
         this.name = name;
         this.chosenMove = chosenMove;
     }
     
-    public  gameCheck(String chosenMove1, String chosenMove2) //get rid of void after you finish setting this up.
+    public void botSet(boolean status, String name, String chosenMove2)
+    {
+
+    }
+    public String gameCheck(String chosenMove1, String chosenMove2) //get rid of void after you finish setting this up.
     {
         if (chosenMove1.equals("Rock"))
         {
             if(chosenMove2.equals("Rock"))
             {
-                return //tie
+                return gameTie(name);
             }
             else if(chosenMove2.equals("Paper"))
             {
-                return //1 loses
+                return gameLost(name, performance);
             }
             else if(chosenMove2.equals("Sissors"))
             {
-                return //1 wins
+                return gameWon(name, performance);
             }
             else
             {
@@ -38,15 +44,15 @@ public class player
         {
             if(chosenMove2.equals("Rock"))
             {
-                return //1wins
+                return gameWon(name, performance);
             }
             else if(chosenMove2.equals("Paper"))
             {
-                return //tie
+                return gameTie(name);
             }
             else if(chosenMove2.equals("Sissors"))
             {
-                return //1 loses
+                return gameLost(name, performance);
             }
             else
             {
@@ -57,15 +63,15 @@ public class player
         {
             if(chosenMove2.equals("Rock"))
             {
-                return //1 loses
+                return gameLost(name, performance);
             }
             else if(chosenMove2.equals("Paper"))
             {
-                return //1 wins
+                return gameWon(name, performance);
             }
             else if(chosenMove2.equals("Sissors"))
             {
-                return //tie
+                return gameTie(name);
             }
             else
             {
@@ -74,6 +80,38 @@ public class player
         }
     }   
 
+    public String gameLost(String name, boolean performance)
+    {
+        performance = false;
+        statusCheck(performance);
+        return name + "lost this round";
+    }
+    
+    public String gameTie(String name)
+    {
+        return name + " tied with the bot this time.";
+    }
+
+    public String gameWon(String name, boolean performance)
+    {
+        performance = true;
+        statusCheck(performance);
+        return name + "won this round";
+    }
+
+    public void statusCheck(boolean performance)
+    {
+        if(performance == false)
+        {
+            score = score - 1;
+            System.out.println(name + "lost");
+        }
+        else
+        {
+            score++;
+            System.out.println(name + "won");
+        }
+    }
 
 
 
